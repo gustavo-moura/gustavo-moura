@@ -43,7 +43,7 @@ linkedin_username: gus-moura
 
 # About Section
 # about_title: About Me (Use this to override about section title)
-about_profile_image: Directory of profile image (eg. images/profile.jpg)
+about_profile_image: images/profile.jpg
 about_content: | # this will include new lines to allow paragraphs
   AI's capability to change the world excites me, hence I am currently focusing on my studies in artificial intelligence techniques and pursuing a Master's Degree at UNICAMP, my current university. I am mostly interested in expanding my artificial intelligence and data science knowledge to apply it in real-world problems, getting to know the corporative environment and its AI needs.
 
