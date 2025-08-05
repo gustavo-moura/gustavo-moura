@@ -1,0 +1,42 @@
+site_name: Gustavo de Moura
+site_url: https://gustavo-moura.github.io/gustavo-moura/
+site_description: Personal website.
+site_author: Gustavo de Moura
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+
+# markdown_extensions:
+#   - admonition
+#   - codehilite:
+#       guess_lang: false
+#   - toc:
+#       permalink: true
+
+
+plugins:
+  - blog:
+      blog_toc: true
+  # - mkdocs-material:
+  #     features:
+  #       - navigation.tabs
+  #       - navigation.sections
+  #       - navigation.instant
+#   - awesome-pages:
+#       collapse_single_pages: true
+#       collapse_navigati
+
+nav:
+  - Blog:
+    - blog/index.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/gustavo-moura
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/gustavo-moura
