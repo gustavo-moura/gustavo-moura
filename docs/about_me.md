@@ -1,0 +1,29 @@
+---
+hide:
+    - navigation
+    - toc
+    - title
+---
+
+<div align="center">
+    <img src="../assets/profile_picture_anime.png" 
+         alt="Description of image" 
+         width="200" 
+         height="200" 
+         style="border-radius: 20%;">
+</div>
+
+
+<div align="center">
+<h1>Hello, I'm Gus 👋</h1>
+</div>
+
+<div align="justify" style="max-width: 700px; margin: 0 auto;">
+    I'm a machine learning engineer and creative tech enthusiast who loves building AI systems that are smart, safe, and actually useful. I’ve spent the last 8 years turning research into real-world products, from autonomous drones to intelligent agents. 
+    <br><br>
+    When I'm not coding, you can find me exploring the latest in AI, tinkering with new gadgets, or diving into sci-fi novels.
+    Always learning, always experimenting, always chasing the “wow” factor in technology.
+    <br><br>
+    🔮 "Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke, 1962
+</div>
+
