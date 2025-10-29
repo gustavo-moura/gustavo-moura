@@ -20,11 +20,13 @@ theme:
     - navigation.instant
     # - announce.dismiss
     # - header.autohide
+    - navigation.indexes
 
 plugins:
   - blog:
-      archive: false
-      blog_toc: true
+      archive: true
+      blog_toc: false
+      post_date_format: long
 
 extra:
   social:
@@ -48,4 +50,5 @@ nav:
   - Blog:
     - blog/index.md
   - Publications: publications.md
+  - Games: games.md
   - Resources: resources.md

@@ -16,7 +16,7 @@ In this section I show my most recent published papers. The complete list can be
 
 <div style="flex: 2;">
 <div>
-    <h2>
+    <h2 id="master_thesis">
         <a href="https://drive.google.com/file/d/1ZOIbOIRYEf-QOxiAyBQxteoMKjhRhZEi/preview" target="_blank">
             Monte Carlo continuous action space solver for chance constrained Markov decision processes
         </a>
@@ -84,7 +84,7 @@ In this section I show my most recent published papers. The complete list can be
 
 <div style="flex: 2;">
 <div>
-    <h2>
+    <h2 id="harpia">
         <a href="https://www.sciencedirect.com/science/article/pii/S2772375523000217" target="_blank">
             Harpia: A hybrid system for agricultural UAV missions
         </a>
