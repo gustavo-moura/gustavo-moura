@@ -14,8 +14,15 @@ hide:
 </div>
 
 
-<div align="center">
+<div align="center" markdown>
 <h1>Hello, I'm Gus 👋</h1>
+
+<a href="https://github.com/gustavo-moura" target="_blank">
+    :fontawesome-brands-github:
+</a>
+<a href="https://linkedin.com/in/gustavo-moura" target="_blank">
+    :fontawesome-brands-linkedin:
+</a>
 </div>
 
 <div align="justify" style="max-width: 700px; margin: 0 auto;">
