@@ -1,0 +1,37 @@
+name: MKDocs Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_mkdocs:
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout the repository
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Authenticate and setup configs for GitHub
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+      
+      # Install Python and dependencies
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+        
+      # Run the build and deploy process from mkdocs
+      - name: Setup and Build MKDocs
+        run: |
+          uv sync
+          uv run mkdocs gh-deploy -b gh-pages --force
