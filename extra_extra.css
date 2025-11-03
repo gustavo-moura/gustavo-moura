@@ -1,0 +1,76 @@
+/* Elegant Low-Contrast Black & White Theme */
+:root {
+  /* Primary color shades – subtle cool grey tone for links/buttons */
+  --md-primary-fg-color: #555555;
+  --md-primary-fg-color--light: #777777;
+  --md-primary-fg-color--dark: #333333;
+
+  /* Text colors – soft dark grey to mid grey */
+  --md-default-fg-color: #2c2c2c;
+  --md-default-fg-color--light: #555555;
+  --md-default-fg-color--lighter: #777777;
+  --md-default-fg-color--lightest: #999999;
+
+  /* Background colors – elegant off-whites */
+  --md-default-bg-color: #f9f9f9;
+  --md-default-bg-color--light: #f2f2f2;
+  --md-default-bg-color--lighter: #ededed;
+  --md-default-bg-color--lightest: #e6e6e6;
+
+  /* Code block colors – soft contrast for readability */
+  --md-code-bg-color: #eeeeee;
+  --md-code-fg-color: #444444;
+
+  /* Admonition colors – very subtle tone */
+  --md-admonition-bg-color: var(--md-default-bg-color);
+  --md-admonition-fg-color: var(--md-default-fg-color);
+
+  /* Footer colors – neutral grey shades */
+  --md-footer-bg-color: #e0e0e0;
+  --md-footer-bg-color--dark: #d6d6d6;
+  --md-footer-fg-color: #4d4d4d;
+  --md-footer-fg-color--light: #6e6e6e;
+  --md-footer-fg-color--lighter: #999999;
+}
+
+
+/* --- Navbar and Header Styling for Elegant Minimal Theme --- */
+
+/* Match header/navbar background to page background */
+.md-header,
+.md-header__inner,
+.md-tabs {
+  background-color: var(--md-default-bg-color) !important;
+  box-shadow: none !important;
+}
+.md-header__inner,
+.md-header__button,
+.md-search__input,
+.md-search__output {
+  background-color: var(--md-default-bg-color) !important;
+  color: var(--md-default-fg-color) !important;
+  box-shadow: none !important;
+}
+
+/* Center the site title */
+.md-header__title {
+  margin: 0 auto !important;
+  justify-content: center !important;
+  width: 100%;
+  text-align: center;
+}
+
+/* Hide the logo icon (left of title) */
+.md-header__button.md-logo {
+  display: none !important;
+}
+
+/* Hide project name on the left if using that instead of icon */
+.md-header__title .md-header__ellipsis {
+  justify-content: center !important;
+}
+
+/* Optional: Keep nav links in header from popping out */
+.md-tabs__item {
+  color: var(--md-default-fg-color) !important;
+}
