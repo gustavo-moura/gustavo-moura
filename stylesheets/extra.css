@@ -1,0 +1,44 @@
+/* Warm Dark Theme with Coral & Gold Accents */
+:root {
+  /* Primary color shades – Coral for links/highlights */
+  --md-primary-fg-color: #A667E4;       
+  --md-primary-fg-color--light: #FF8B81; /* Lighter coral for hover */
+  --md-primary-fg-color--dark: #E65A4F;  /* Darker coral for active state */
+
+  /* Text colors – warm cream for readability on charcoal background */
+  --md-default-fg-color: #FFFFFF;
+  --md-default-fg-color--light: #FFFFFF;
+  --md-default-fg-color--lighter: #FFFFFF;
+  --md-default-fg-color--lightest: #A1A0AB;
+
+  /* Background colors – charcoal base */
+  --md-default-bg-color: #181818;
+  --md-default-bg-color--light: #242424;
+  --md-default-bg-color--lighter: #2E2E2E;
+  --md-default-bg-color--lightest: #383838;
+
+  /* Code block colors – slightly lighter than background */
+  --md-code-bg-color: #242424;
+  --md-code-fg-color: #F5E8D8;
+
+  /* Admonition colors – blend subtly with background */
+  --md-admonition-bg-color: #242424;
+  --md-admonition-fg-color: var(--md-default-fg-color);
+
+  /* Footer colors – darker for visual separation */
+  --md-footer-bg-color: #2c0444;
+  --md-footer-bg-color--dark: #0f0118;
+  --md-footer-fg-color: #F5E8D8;
+  --md-footer-fg-color--light: #D8C9B7;
+  --md-footer-fg-color--lighter: #B8A998;
+
+  /* Secondary accents */
+  --md-accent-fg-color: #DAA520; /* Goldenrod for subtle highlights */
+  --md-accent-bg-color: #FF4500; /* Orange-red for buttons/CTAs */
+}
+
+.md-tabs,
+.md-header {
+    background: radial-gradient(circle, #FF8B81 0%, #A667E4 25%, #E65A4F 50%, #6A2C2C 75%, #2c0444 100%);
+  /* background-color: var(--md-default-bg-color); */
+}
