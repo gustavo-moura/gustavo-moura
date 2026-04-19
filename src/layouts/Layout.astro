@@ -7,6 +7,7 @@ import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import { SITE } from '@/consts'
 import { cn } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
 
 interface Props {
   class?: string
@@ -49,14 +50,45 @@ const { class: className } = Astro.props
       </main>
       <Footer />
     </div>
+    <button
+      type="button"
+      id="scroll-to-top"
+      title="Scroll to top"
+      aria-label="Scroll to top"
+      class="border-border/60 bg-background/60 hover:border-foreground/60 hover:bg-background/80 group pointer-events-none invisible fixed right-6 bottom-6 z-50 inline-flex size-10 items-center justify-center rounded-full border opacity-0 backdrop-blur-md transition-[opacity,visibility,background-color,border-color] duration-300"
+    >
+      <Icon
+        name="lucide:arrow-up"
+        class="size-4 transition-transform group-hover:-translate-y-0.5"
+      />
+    </button>
     <script>
       const header = document.querySelector<HTMLElement>('[data-site-header]')
-      const update = () => {
+      const updateHeader = () => {
         if (!header) return
         header.dataset.scrolled = window.scrollY > 16 ? 'true' : 'false'
       }
-      update()
-      window.addEventListener('scroll', update, { passive: true })
+      updateHeader()
+      window.addEventListener('scroll', updateHeader, { passive: true })
+
+      const scrollBtn = document.querySelector<HTMLButtonElement>('#scroll-to-top')
+      if (scrollBtn) {
+        scrollBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        })
+        const updateScrollBtn = () => {
+          const footer = document.querySelector('footer')
+          const footerVisible = footer
+            ? footer.getBoundingClientRect().top <= window.innerHeight
+            : false
+          const show = window.scrollY > 300 && !footerVisible
+          scrollBtn.classList.toggle('invisible', !show)
+          scrollBtn.classList.toggle('opacity-0', !show)
+          scrollBtn.classList.toggle('pointer-events-none', !show)
+        }
+        updateScrollBtn()
+        window.addEventListener('scroll', updateScrollBtn, { passive: true })
+      }
     </script>
   </body>
 </html>

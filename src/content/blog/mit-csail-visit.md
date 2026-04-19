@@ -11,13 +11,13 @@ authors:
 imageWithoutText: ../../../public/images/blog/mit/csail-entrance.jpg
 ---
 
-![Gus at the MIT CSAIL entrance](/gustavo-moura/images/blog/mit/csail-entrance.jpg)
+![Gus at the MIT CSAIL entrance](/images/blog/mit/csail-entrance.jpg)
 
-Last month I had the incredible opportunity to visit the **MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)** and present my [Master's research](/publications#master-thesis) to the group. Getting to share the work we've been doing at the **Instituto de Ciências Matemáticas e de Computação (ICMC) – USP** with the CSAIL community felt a bit surreal.
+Last month I had the incredible opportunity to visit the **MIT Computer Science and Artificial Intelligence Laboratory (CSAIL)** and present my [Master's research](/research#master-thesis) to the group. Getting to share the work we've been doing at the **Instituto de Ciências Matemáticas e de Computação (ICMC) – USP** with the CSAIL community felt a bit surreal.
 
 The thesis explores Monte Carlo methods for continuous-action chance-constrained MDPs — sequential decision making under risk, where actions don't come from a neat discrete set. Presenting it in a room full of people who think about planning under uncertainty for a living produced exactly the kind of feedback you can't buy.
 
-![Presenting "Nashor", the Monte Carlo planner from the thesis](/gustavo-moura/images/blog/mit/presenting.jpg)
+![Presenting "Nashor", the Monte Carlo planner from the thesis](/images/blog/mit/presenting.jpg)
 
 ## Thank yous
 
@@ -25,10 +25,10 @@ A few people made this trip what it was:
 
 - **Prof. Claudio Toledo** (ICMC/USP) — for the invite and for years of patient advising that made this visit possible.
 - **Prof. Brian Williams** — for welcoming me into the lab and creating the space for a genuine exchange of ideas.
-- **Jake O.** and **Benjamin Ayton** — great conversations and sharp questions that already changed how I think about a couple of the open problems.
+- **Jake O.** and **Ben Ayton** — great conversations and sharp questions that already changed how I think about a couple of the open problems.
 - **Allan** — thanks for the support through the whole adventure.
 
-![Outside the Stata Center with Allan](/gustavo-moura/images/blog/mit/stata-center.jpg)
+![Outside the Stata Center with Allan](/images/blog/mit/stata-center.jpg)
 
 ## An art installation we stumbled onto
 

@@ -18,7 +18,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   site: 'https://gustavo-moura.github.io',
-  base: '/gustavo-moura',
   integrations: [expressiveCode(), mdx(), react(), sitemap(), icon()],
   vite: {
     plugins: [tailwindcss()],

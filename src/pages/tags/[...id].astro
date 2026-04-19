@@ -2,6 +2,7 @@
 import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import PageHead from '@/components/PageHead.astro'
+import TagFilterBar from '@/components/TagFilterBar.astro'
 import Layout from '@/layouts/Layout.astro'
 import { getAllTags, getPostsByTag } from '@/lib/data-utils'
 
@@ -39,6 +40,8 @@ const { tag, posts } = Astro.props
       { label: tag, icon: 'lucide:tag' },
     ]}
   />
+
+  <TagFilterBar activeTag={tag} />
 
   <ul class="flex flex-col gap-y-4">
     {

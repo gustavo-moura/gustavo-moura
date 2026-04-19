@@ -42,7 +42,7 @@ const categories = Array.isArray(category)
     : []
 ---
 
-<div class="mx-auto flex flex-col gap-y-4 border p-4">
+<div class="border-border/40 bg-background/40 mx-auto flex flex-col gap-y-4 rounded-2xl border p-4 backdrop-blur-sm">
   {
     title && (
       <span class="not-prose text-foreground text-xl font-medium">{title}</span>
@@ -172,7 +172,7 @@ const categories = Array.isArray(category)
             Remote
           </dt>
           <dd class="flex-1 text-xs">
-            <code class="bg-muted text-foreground relative border px-[0.3rem] py-[0.2rem] text-xs font-medium break-words">
+            <code class="bg-muted text-foreground relative rounded-md border px-[0.3rem] py-[0.2rem] text-xs font-medium break-words">
               {remote}
             </code>
           </dd>
@@ -187,7 +187,7 @@ const categories = Array.isArray(category)
             Flag
           </dt>
           <dd class="flex-1 text-xs">
-            <code class="bg-muted text-foreground relative cursor-pointer border px-[0.3rem] py-[0.2rem] text-xs font-medium break-all blur-xs transition-all duration-200 select-all hover:blur-none">
+            <code class="bg-muted text-foreground relative cursor-pointer rounded-md border px-[0.3rem] py-[0.2rem] text-xs font-medium break-all blur-xs transition-all duration-200 select-all hover:blur-none">
               {flag}
             </code>
           </dd>

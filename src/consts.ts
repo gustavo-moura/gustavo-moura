@@ -13,9 +13,9 @@ export const SITE: Site = {
 
 export const NAV_LINKS: SocialLink[] = [
   { href: '/', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/publications', label: 'Publications' },
+  { href: '/research', label: 'Research' },
   { href: '/games', label: 'Games' },
+  { href: '/blog', label: 'Blog' },
   { href: '/resources', label: 'Resources' },
   { href: '/about', label: 'About' },
 ]
@@ -27,7 +27,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     href: 'https://scholar.google.com.br/citations?user=PqZyPqoAAAAJ&hl=en',
     label: 'Scholar',
   },
-  { href: '/rss.xml', label: 'RSS' },
 ]
 
 export const ICON_MAP: IconMap = {

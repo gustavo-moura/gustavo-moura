@@ -14,17 +14,55 @@ import { cn } from '@/lib/utils'
     <div class="flex items-center gap-4">
       <nav class="flex items-center gap-5 text-sm">
         {
-          NAV_LINKS.map((item) => (
-            <Link
-              href={item.href}
-              class={cn(
-                'text-muted-foreground hover:text-foreground capitalize transition-colors',
-                item.label === 'Home' && 'hidden sm:inline',
-              )}
-            >
-              {item.label}
-            </Link>
-          ))
+          NAV_LINKS.map((item) =>
+            item.children && item.children.length > 0 ? (
+              <div class="group relative">
+                <Link
+                  href={item.href}
+                  class={cn(
+                    'text-muted-foreground hover:text-foreground inline-flex items-center gap-1 capitalize transition-colors',
+                    item.label === 'Home' && 'hidden sm:inline-flex',
+                  )}
+                >
+                  {item.label}
+                  <svg
+                    class="size-3 opacity-60 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </Link>
+                <div
+                  class="border-border/40 bg-background/80 pointer-events-none invisible absolute top-full left-1/2 z-50 mt-2 flex min-w-[9rem] -translate-x-1/2 translate-y-1 flex-col gap-1 rounded-2xl border p-2 opacity-0 backdrop-blur-md transition-[opacity,transform,visibility] duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                >
+                  {item.children.map((child) => (
+                    <Link
+                      href={child.href}
+                      class="text-muted-foreground hover:text-foreground hover:bg-muted/60 rounded-full px-3 py-1 text-sm capitalize transition-colors"
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                href={item.href}
+                class={cn(
+                  'text-muted-foreground hover:text-foreground capitalize transition-colors',
+                  item.label === 'Home' && 'hidden sm:inline',
+                )}
+              >
+                {item.label}
+              </Link>
+            ),
+          )
         }
       </nav>
     </div>

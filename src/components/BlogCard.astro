@@ -26,15 +26,15 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
 ---
 
 <div
-  class="hover:bg-muted/50 border p-4 transition-colors duration-300 ease-in-out"
+  class="border-border/40 bg-background/40 hover:border-foreground/40 hover:bg-background/60 rounded-2xl border p-4 backdrop-blur-sm transition-[background-color,border-color] duration-300 ease-in-out"
 >
   <Link
     href={`/${entry.collection}/${entry.id}`}
-    class="flex flex-col gap-4 sm:flex-row"
+    class="flex flex-col gap-4 sm:flex-row-reverse sm:items-start"
   >
     {
       (entry.data.imageWithoutText || entry.data.imageWithText) && (
-        <div class="max-w-3xs sm:shrink-0">
+        <div class="w-full sm:w-52 sm:shrink-0">
           <Image
             src={
               entry.data.imageWithoutText
@@ -44,7 +44,7 @@ const subpostCount = !isSubpost(entry.id) ? await getSubpostCount(entry.id) : 0
             alt={entry.data.title}
             width={1200}
             height={630}
-            class="object-cover"
+            class="aspect-video w-full rounded-xl object-cover"
           />
         </div>
       )

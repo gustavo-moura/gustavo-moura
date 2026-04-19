@@ -131,7 +131,7 @@
     }
 
     :where(img):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
-      @apply border;
+      @apply max-w-[60%] rounded-xl border;
     }
 
     :where(.expressive-code details):not(
