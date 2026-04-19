@@ -1,0 +1,305 @@
+---
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { cn, getHeadingMargin } from '@/lib/utils'
+import type { MarkdownHeading } from 'astro'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  headings: MarkdownHeading[]
+  currentTitle?: string
+}
+
+const { headings, currentTitle } = Astro.props
+---
+
+{
+  headings && headings.length > 0 && (
+    <div
+      id="mobile-toc-container"
+      class="relative w-full px-4 xl:hidden"
+      data-current-title={currentTitle}
+    >
+      <details class="group">
+        <summary class="border-border/40 bg-background/60 hover:border-foreground/40 mx-auto flex max-w-md cursor-pointer list-none items-center gap-3 rounded-full border px-4 py-1.5 backdrop-blur-md transition-[background-color,border-color] [&::-webkit-details-marker]:hidden">
+          <div class="relative size-4 shrink-0">
+            <svg class="size-4" viewBox="0 0 24 24">
+              <circle
+                class="text-primary/20"
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle
+                id="mobile-toc-progress-circle"
+                class="text-primary"
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-dasharray="62.83"
+                stroke-dashoffset="62.83"
+                transform="rotate(-90 12 12)"
+              />
+            </svg>
+          </div>
+          <span
+            id="mobile-toc-current-section"
+            class="text-muted-foreground flex-grow truncate text-sm"
+          >
+            Overview
+          </span>
+          <Icon
+            name="lucide:chevron-down"
+            class="text-muted-foreground size-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+          />
+        </summary>
+
+        <div
+          class="pointer-events-none absolute inset-x-0 top-full z-40 mt-2 translate-y-1 px-4 opacity-0 transition-[opacity,transform] duration-200 group-open:pointer-events-auto group-open:translate-y-0 group-open:opacity-100"
+        >
+          <ScrollArea
+            client:load
+            className="border-border/40 bg-background/80 mx-auto max-w-md rounded-2xl border shadow-lg backdrop-blur-md"
+            data-toc-header-scroll
+          >
+            <div class="max-h-[50vh]">
+              <ul
+                class="flex list-none flex-col gap-y-2 p-4"
+                id="mobile-table-of-contents"
+              >
+                {headings.map((heading) => (
+                  <li
+                    class={cn(
+                      'text-muted-foreground px-4 text-sm',
+                      getHeadingMargin(heading.depth),
+                    )}
+                  >
+                    <a
+                      href={`#${heading.slug}`}
+                      class="mobile-toc-item underline decoration-transparent underline-offset-[3px] transition-colors duration-200 hover:decoration-inherit"
+                      data-heading-id={heading.slug}
+                    >
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </ScrollArea>
+        </div>
+      </details>
+    </div>
+  )
+}
+
+<script>
+  const OVERVIEW = 'Overview'
+  const HEADER_OFFSET = 138
+  const CIRCLE_R = 10
+  const CIRCLE_C = 2 * Math.PI * CIRCLE_R
+  const HEADING_SELECTOR = '.prose h2, .prose h3, .prose h4, .prose h5, .prose h6'
+
+  type Region = { id: string; start: number; end: number }
+
+  const state = {
+    container: null as HTMLElement | null,
+    details: null as HTMLDetailsElement | null,
+    circle: null as SVGElement | null,
+    label: null as HTMLElement | null,
+    list: null as HTMLElement | null,
+    scrollArea: null as HTMLElement | null,
+    title: null as string | null,
+    headings: [] as HTMLElement[],
+    regions: [] as Region[],
+    activeIds: [] as string[],
+  }
+
+  const bindRefs = () => {
+    state.container = document.getElementById('mobile-toc-container')
+    if (!state.container) return false
+    state.details = state.container.querySelector('details')
+    state.circle = document.getElementById(
+      'mobile-toc-progress-circle',
+    ) as SVGElement | null
+    state.label = document.getElementById('mobile-toc-current-section')
+    state.list = document.getElementById('mobile-table-of-contents')
+    state.scrollArea = state.container.querySelector(
+      '[data-radix-scroll-area-viewport]',
+    )
+    state.title = state.container.dataset.currentTitle ?? null
+    return true
+  }
+
+  const buildRegions = () => {
+    state.headings = Array.from(
+      document.querySelectorAll<HTMLElement>(HEADING_SELECTOR),
+    )
+    state.regions = state.headings.map((h, i) => ({
+      id: h.id,
+      start: h.offsetTop,
+      end: state.headings[i + 1]?.offsetTop ?? document.body.scrollHeight,
+    }))
+  }
+
+  const getVisibleIds = () => {
+    if (state.headings.length === 0) return []
+    const top = window.scrollY + HEADER_OFFSET
+    const bottom = window.scrollY + window.innerHeight
+    const ids = new Set<string>()
+
+    for (const h of state.headings) {
+      const hb = h.offsetTop + h.offsetHeight
+      if (
+        (h.offsetTop >= top && h.offsetTop <= bottom) ||
+        (hb >= top && hb <= bottom) ||
+        (h.offsetTop <= top && hb >= bottom)
+      ) {
+        ids.add(h.id)
+      }
+    }
+
+    for (const r of state.regions) {
+      if (r.start > bottom || r.end < top) continue
+      const h = document.getElementById(r.id)
+      if (!h) continue
+      const hb = h.offsetTop + h.offsetHeight
+      if (r.end > hb && (hb < bottom || top < r.end)) ids.add(r.id)
+    }
+
+    return [...ids]
+  }
+
+  const updateLabel = (ids: string[]) => {
+    if (!state.label) return
+    const texts = state.headings
+      .filter((h) => ids.includes(h.id) && h.textContent)
+      .map((h) => h.textContent!.trim())
+      .filter(
+        (t) =>
+          !state.title || t.toLowerCase() !== state.title.toLowerCase(),
+      )
+    state.label.textContent = texts.length > 0 ? texts.join(' · ') : OVERVIEW
+  }
+
+  const scrollActiveIntoView = (id: string) => {
+    if (!state.list || !state.scrollArea) return
+    const item = state.list.querySelector(`[data-heading-id="${id}"]`)
+    if (!item) return
+    const { top: ct, height: ch } = state.scrollArea.getBoundingClientRect()
+    const { top: it, height: ih } = item.getBoundingClientRect()
+    const current = it - ct + state.scrollArea.scrollTop
+    const target = Math.max(
+      0,
+      Math.min(
+        current - (ch - ih) / 2,
+        state.scrollArea.scrollHeight - state.scrollArea.clientHeight,
+      ),
+    )
+    if (Math.abs(target - state.scrollArea.scrollTop) > 5) {
+      state.scrollArea.scrollTop = target
+    }
+  }
+
+  const highlightLinks = (ids: string[]) => {
+    if (!state.list) return
+    state.list.querySelectorAll<HTMLElement>('.mobile-toc-item').forEach((el) => {
+      const on = !!el.dataset.headingId && ids.includes(el.dataset.headingId)
+      el.classList.toggle('text-foreground', on)
+    })
+    if (ids[0]) scrollActiveIntoView(ids[0])
+  }
+
+  const updateMask = () => {
+    if (!state.scrollArea) return
+    const { scrollTop, scrollHeight, clientHeight } = state.scrollArea
+    const atTop = scrollTop <= 5
+    const atBottom = scrollTop >= scrollHeight - clientHeight - 5
+    state.scrollArea.classList.toggle('mask-t-from-80%', !atTop)
+    state.scrollArea.classList.toggle('mask-b-from-80%', !atBottom)
+  }
+
+  const updateProgress = () => {
+    if (!state.circle) return
+    const total = document.documentElement.scrollHeight - window.innerHeight
+    const p = total > 0 ? Math.min(Math.max(window.scrollY / total, 0), 1) : 0
+    state.circle.style.strokeDashoffset = (CIRCLE_C * (1 - p)).toString()
+  }
+
+  const onScroll = () => {
+    const ids = getVisibleIds()
+    if (JSON.stringify(ids) !== JSON.stringify(state.activeIds)) {
+      state.activeIds = ids
+      highlightLinks(ids)
+      updateLabel(ids)
+    }
+    updateProgress()
+  }
+
+  const onResize = () => {
+    buildRegions()
+    onScroll()
+  }
+
+  const setupInteraction = () => {
+    state.list?.querySelectorAll('.mobile-toc-item').forEach((el) =>
+      el.addEventListener('click', () => {
+        if (state.details) state.details.open = false
+      }),
+    )
+    state.scrollArea?.addEventListener('scroll', updateMask, { passive: true })
+    state.details?.addEventListener('toggle', () => {
+      if (state.details?.open) {
+        setTimeout(updateMask, 100)
+        if (state.label) state.label.style.opacity = '0'
+      } else if (state.label) {
+        state.label.style.opacity = '1'
+      }
+    })
+  }
+
+  const init = () => {
+    if (!bindRefs()) return
+    if (state.circle) {
+      state.circle.style.strokeDasharray = CIRCLE_C.toString()
+      state.circle.style.strokeDashoffset = CIRCLE_C.toString()
+    }
+    buildRegions()
+    if (!state.label) return
+
+    if (state.headings.length === 0) {
+      state.label.textContent = OVERVIEW
+      window.addEventListener('scroll', updateProgress, { passive: true })
+      updateProgress()
+      return
+    }
+
+    state.activeIds = getVisibleIds()
+    highlightLinks(state.activeIds)
+    updateLabel(state.activeIds)
+    updateProgress()
+    setupInteraction()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize, { passive: true })
+  }
+
+  const cleanup = () => {
+    window.removeEventListener('scroll', onScroll)
+    window.removeEventListener('scroll', updateProgress)
+    window.removeEventListener('resize', onResize)
+    state.activeIds = []
+    state.headings = []
+    state.regions = []
+  }
+
+  document.addEventListener('astro:page-load', init)
+  document.addEventListener('astro:after-swap', () => {
+    cleanup()
+    init()
+  })
+  document.addEventListener('astro:before-swap', cleanup)
+</script>

@@ -1,0 +1,49 @@
+---
+import Link from '@/components/Link.astro'
+import { getSortedTags } from '@/lib/data-utils'
+import { cn } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  activeTag?: string | null
+  allHref?: string
+}
+
+const { activeTag = null, allHref = '/blog' } = Astro.props
+const sortedTags = await getSortedTags()
+
+const chipBase =
+  'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs whitespace-nowrap backdrop-blur-sm transition-[background-color,border-color,color]'
+const chipInactive =
+  'border-border/40 bg-background/40 text-muted-foreground hover:border-foreground/40 hover:bg-background/60 hover:text-foreground'
+const chipActive =
+  'border-foreground/60 bg-foreground/10 text-foreground'
+---
+
+<nav aria-label="Filter by tag" class="-mx-4 overflow-x-auto px-4">
+  <ul class="flex flex-nowrap gap-2" role="list">
+    <li>
+      <Link
+        href={allHref}
+        class={cn(chipBase, activeTag === null ? chipActive : chipInactive)}
+      >
+        <Icon name="lucide:layers" class="size-3" />
+        All
+      </Link>
+    </li>
+    {
+      sortedTags.map(({ tag, count }) => (
+        <li>
+          <Link
+            href={`/tags/${tag}`}
+            class={cn(chipBase, activeTag === tag ? chipActive : chipInactive)}
+          >
+            <Icon name="lucide:hash" class="size-3" />
+            {tag}
+            <span class="text-muted-foreground/70 ml-0.5">{count}</span>
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

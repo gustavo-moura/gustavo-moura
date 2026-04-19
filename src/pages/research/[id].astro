@@ -1,0 +1,134 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getAllPublications } from '@/lib/data-utils'
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets'
+import { render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const publications = await getAllPublications()
+  return publications.map((pub) => ({
+    params: { id: pub.id },
+    props: pub,
+  }))
+}
+
+const pub = Astro.props
+const { Content } = await render(pub)
+
+const renderAuthors = (authors: string) =>
+  authors.replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground">$1</strong>')
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title={pub.data.title} description={pub.data.abstract} />
+  <Breadcrumbs
+    items={[
+      { href: '/research', label: 'Research', icon: 'lucide:graduation-cap' },
+      { label: pub.data.title, icon: 'lucide:file-text' },
+    ]}
+  />
+
+  <article class="flex flex-col gap-8 pb-12">
+    <header class="flex flex-col gap-4 text-center">
+      <p class="text-muted-foreground text-xs tracking-wide uppercase">
+        {pub.data.venue} &middot; {pub.data.date.getFullYear()}
+      </p>
+      <h1 class="text-3xl leading-tight font-medium text-balance sm:text-4xl">
+        {pub.data.title}
+      </h1>
+      <p
+        class="text-muted-foreground text-sm"
+        set:html={renderAuthors(pub.data.authors)}
+      />
+      <div class="mt-2 flex flex-wrap justify-center gap-2">
+        <Link
+          href={pub.data.link}
+          external
+          class="border-border/60 bg-background/40 hover:border-foreground/50 hover:bg-background/70 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm backdrop-blur-sm transition-[background-color,border-color]"
+        >
+          <Icon name="lucide:external-link" class="size-4" />
+          Read the paper
+        </Link>
+        <a
+          href={pub.data.link}
+          download
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          class="border-border/60 bg-background/40 hover:border-foreground/50 hover:bg-background/70 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm backdrop-blur-sm transition-[background-color,border-color]"
+        >
+          <Icon name="lucide:download" class="size-4" />
+          Download
+        </a>
+        <button
+          type="button"
+          data-share
+          data-share-title={pub.data.title}
+          data-share-text={pub.data.abstract ?? pub.data.title}
+          class="border-border/60 bg-background/40 hover:border-foreground/50 hover:bg-background/70 inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm backdrop-blur-sm transition-[background-color,border-color]"
+        >
+          <Icon name="lucide:share" class="size-4" />
+          <span data-share-label>Share</span>
+        </button>
+      </div>
+    </header>
+
+    {
+      pub.data.image && (
+        <div class="border-border/40 bg-background/30 overflow-hidden rounded-2xl border backdrop-blur-sm">
+          <Image
+            src={pub.data.image}
+            alt={pub.data.title}
+            width={1200}
+            height={700}
+            class="w-full object-cover"
+          />
+        </div>
+      )
+    }
+
+    {
+      pub.data.abstract && (
+        <section class="border-border/40 bg-background/40 flex flex-col gap-2 rounded-2xl border p-5 backdrop-blur-sm">
+          <h2 class="text-muted-foreground text-xs tracking-wide uppercase">
+            Abstract
+          </h2>
+          <p class="text-pretty">{pub.data.abstract}</p>
+        </section>
+      )
+    }
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </article>
+  <script>
+    document.querySelectorAll<HTMLButtonElement>('[data-share]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const title = btn.dataset.shareTitle ?? document.title
+        const text = btn.dataset.shareText ?? ''
+        const url = window.location.href
+        const label = btn.querySelector<HTMLElement>('[data-share-label]')
+        try {
+          if (navigator.share) {
+            await navigator.share({ title, text, url })
+            return
+          }
+          await navigator.clipboard.writeText(url)
+          if (label) {
+            const original = label.textContent
+            label.textContent = 'Copied!'
+            setTimeout(() => {
+              label.textContent = original
+            }, 1500)
+          }
+        } catch {
+          /* user canceled or clipboard unavailable */
+        }
+      })
+    })
+  </script>
+</Layout>

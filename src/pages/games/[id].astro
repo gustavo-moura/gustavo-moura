@@ -1,0 +1,87 @@
+---
+import Badge from '@/components/Badge.astro'
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import Layout from '@/layouts/Layout.astro'
+import { getAllGames } from '@/lib/data-utils'
+import { extractDomain } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets'
+import { render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const games = await getAllGames()
+  return games.map((game) => ({
+    params: { id: game.id },
+    props: game,
+  }))
+}
+
+const game = Astro.props
+const { Content } = await render(game)
+---
+
+<Layout class="max-w-4xl">
+  <PageHead slot="head" title={game.data.name} description={game.data.description} />
+  <Breadcrumbs
+    items={[
+      { href: '/games', label: 'Games', icon: 'lucide:gamepad-2' },
+      { label: game.data.name, icon: 'lucide:joystick' },
+    ]}
+  />
+
+  <article class="flex flex-col gap-8 pb-12">
+    {
+      game.data.image && (
+        <div class="border-border/40 overflow-hidden rounded-3xl border">
+          <Image
+            src={game.data.image}
+            alt={game.data.name}
+            width={1600}
+            height={900}
+            class="aspect-video w-full object-cover"
+          />
+        </div>
+      )
+    }
+
+    <header class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-3xl leading-tight font-medium sm:text-5xl">
+          {game.data.name}
+        </h1>
+        <p class="text-muted-foreground text-pretty sm:text-lg">
+          {game.data.description}
+        </p>
+      </div>
+      <Link
+        href={game.data.link}
+        external
+        class="border-primary/60 bg-primary/10 hover:bg-primary/20 text-primary inline-flex shrink-0 items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium backdrop-blur-sm transition-[background-color]"
+      >
+        <Icon name="lucide:play" class="size-4" />
+        Play now
+      </Link>
+    </header>
+
+    {
+      game.data.tags && game.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {game.data.tags.map((tag: string) => (
+            <Badge text={tag} />
+          ))}
+        </div>
+      )
+    }
+
+    <p class="text-muted-foreground flex items-center gap-1 text-xs">
+      <Icon name="lucide:external-link" class="size-3" />
+      <span>{extractDomain(game.data.link)}</span>
+    </p>
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,35 @@
+# build output
+dist/
+.output/
+*.tsbuildinfo
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# environment
+.env
+.env.local
+.env.*.local
+.env.production
+
+# astro
+.astro/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# local AI assistant config
+.claude/
