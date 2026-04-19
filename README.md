@@ -14,9 +14,9 @@ Currently ML Team Lead at [Buzz Solutions](https://buzzsolutions.com), working o
 
 ## 🛠️ Usually working with
 
-**Languages** — Python
-**ML & CV** — PyTorch · TensorFlow · OpenCV · scikit-learn
-**Infra** — Docker · Kubernetes · AWS · FastAPI · Git
+- **Languages** — Python
+- **ML & CV** — PyTorch · TensorFlow · OpenCV · scikit-learn
+- **Infra** — Docker · Kubernetes · AWS · FastAPI · Git
 
 ## 👋 Say hi
 
