@@ -1,0 +1,78 @@
+---
+import BlogCard from '@/components/BlogCard.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import SocialIcons from '@/components/SocialIcons.astro'
+import { SOCIAL_LINKS } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
+import { getAllPosts } from '@/lib/data-utils'
+
+const posts = await getAllPosts()
+const latestPosts = posts.slice(0, 3)
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title="Home" />
+
+  <section class="flex flex-col gap-10 pt-8 pb-16">
+    <div class="flex flex-col-reverse items-center gap-8 sm:flex-row sm:items-center sm:gap-10">
+      <div class="flex flex-1 flex-col gap-4 text-left">
+        <h1 class="text-3xl font-medium sm:text-4xl">Hello, I'm Gus 👋</h1>
+        <p class="text-muted-foreground text-balance">
+          Senior Machine Learning Engineer and creative tech enthusiast who loves
+          building AI systems that are smart, safe, and actually useful. Focused
+          on <strong class="text-foreground">computer vision</strong> and <strong
+            class="text-foreground">deep learning</strong
+          >, I've spent the last 8 years turning research into real-world
+          products &mdash; from <Link
+            href="/publications#harpia"
+            class="text-foreground decoration-muted-foreground hover:decoration-foreground underline underline-offset-[3px]"
+            >autonomous drones</Link
+          > to <Link
+            href="/publications#master-thesis"
+            class="text-foreground decoration-muted-foreground hover:decoration-foreground underline underline-offset-[3px]"
+            >intelligent agents</Link
+          >.
+        </p>
+        <div class="mt-2">
+          <SocialIcons links={SOCIAL_LINKS} />
+        </div>
+      </div>
+      <img
+        src={`${base}/images/profile.png`}
+        alt="Gustavo de Moura"
+        class="w-[60%] max-w-[220px] shrink-0 rounded-[20%] sm:w-[30%] sm:max-w-none"
+        loading="eager"
+      />
+    </div>
+
+    <figure class="text-center">
+      <blockquote class="text-muted-foreground text-balance text-lg sm:text-xl">
+        🔮 "Any sufficiently advanced technology is indistinguishable from magic." ✨
+      </blockquote>
+      <figcaption class="text-muted-foreground/70 mt-2 text-sm">
+        Arthur C. Clarke, 1962
+      </figcaption>
+    </figure>
+  </section>
+
+  {
+    latestPosts.length > 0 && (
+      <section class="flex flex-col gap-4 pb-16">
+        <div class="flex items-baseline justify-between">
+          <h2 class="text-xl font-medium">Latest posts</h2>
+          <Link
+            href="/blog"
+            class="text-muted-foreground hover:text-foreground text-sm"
+          >
+            all posts →
+          </Link>
+        </div>
+        <div class="flex flex-col gap-4">
+          {latestPosts.map((post) => <BlogCard entry={post} />)}
+        </div>
+      </section>
+    )
+  }
+</Layout>

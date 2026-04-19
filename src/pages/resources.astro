@@ -1,0 +1,61 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import Layout from '@/layouts/Layout.astro'
+
+const books = [
+  {
+    title: 'Foundations of Large Language Models',
+    authors: 'Tong Xiao, Jingbo Zhu',
+    link: 'https://arxiv.org/abs/2501.09223',
+  },
+  {
+    title: 'Deep Learning',
+    authors: 'Ian Goodfellow, Yoshua Bengio, Aaron Courville',
+    link: 'https://www.deeplearningbook.org',
+  },
+  {
+    title: 'Reinforcement Learning: An Introduction',
+    authors: 'Richard S. Sutton, Andrew G. Barto',
+    link: 'http://incompleteideas.net/book/the-book-2nd.html',
+  },
+  {
+    title: 'Machine Learning Yearning',
+    authors: 'Andrew Ng',
+    link: 'https://info.deeplearning.ai/machine-learning-yearning-book',
+  },
+]
+---
+
+<Layout class="max-w-3xl">
+  <PageHead slot="head" title="Resources" />
+  <Breadcrumbs items={[{ label: 'Resources', icon: 'lucide:book-open' }]} />
+
+  <section class="flex flex-col gap-6">
+    <p class="text-muted-foreground text-sm">
+      A curated list of books, papers, and articles on machine learning and AI
+      that I return to often.
+    </p>
+
+    <div>
+      <h2 class="mb-3 text-xl font-medium">Books</h2>
+      <ul class="flex flex-col gap-3" role="list">
+        {
+          books.map((b) => (
+            <li class="hover:bg-muted/50 border p-4 transition-colors duration-300 ease-in-out">
+              <Link
+                href={b.link}
+                class="block"
+                external
+              >
+                <h3 class="text-base font-medium">{b.title}</h3>
+                <p class="text-muted-foreground text-sm">{b.authors}</p>
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Layout>
