@@ -20,7 +20,7 @@ Currently ML Team Lead at [Buzz Solutions](https://buzzsolutions.com), working o
 
 ## 👋 Say hi
 
-- 🌐 [gustavo-moura.github.io](https://gustavo-moura.github.io)
+- 🌐 [gustavodemoura.com](https://gustavodemoura.com)
 - 💼 [LinkedIn](https://linkedin.com/in/gus-moura)
 - 📖 [Google Scholar](https://scholar.google.com.br/citations?user=PqZyPqoAAAAJ&hl=en)
 
