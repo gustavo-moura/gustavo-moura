@@ -1,8 +1,8 @@
 # Hi, I'm Gus 👋
 
-Senior Machine Learning Engineer, creative tech enthusiast, and perpetual student of the field. I love building AI systems that are smart, safe, and actually useful — mostly around **computer vision** and **deep learning**.
+Senior Machine Learning Engineer, creative tech enthusiast, and perpetual student of the field. I love building AI systems that are smart, safe, and actually useful, mostly around **computer vision** and **deep learning**.
 
-Currently at [Buzz Solutions](https://buzzsolutions.com), working on computer vision for power-grid inspection. Before that: autonomous drones, continual learning, and sim-to-real at Eldorado Research Institute. MSc from **ICMC / USP** (2024) — thesis presented at **MIT CSAIL**.
+Currently ML Team Lead at [Buzz Solutions](https://buzzsolutions.com), working on computer vision for power-grid inspection. Before that: autonomous drones, continual learning, and sim-to-real at Eldorado Research Institute. MSc from **ICMC / USP** (2024) — thesis presented at **MIT CSAIL**.
 
 ## 🧪 What I'm into
 
@@ -14,7 +14,7 @@ Currently at [Buzz Solutions](https://buzzsolutions.com), working on computer vi
 
 ## 🛠️ Usually working with
 
-**Languages** — Python · TypeScript · C++
+**Languages** — Python
 **ML & CV** — PyTorch · TensorFlow · OpenCV · scikit-learn
 **Infra** — Docker · Kubernetes · AWS · FastAPI · Git
 
@@ -24,6 +24,3 @@ Currently at [Buzz Solutions](https://buzzsolutions.com), working on computer vi
 - 💼 [LinkedIn](https://linkedin.com/in/gus-moura)
 - 📖 [Google Scholar](https://scholar.google.com.br/citations?user=PqZyPqoAAAAJ&hl=en)
 
----
-
-*This repo also powers my personal site, built with [Astro](https://astro.build). Dev notes in [DEVELOPMENT.md](DEVELOPMENT.md), active follow-ups in [TODO.md](TODO.md).*
