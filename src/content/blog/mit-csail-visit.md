@@ -6,6 +6,7 @@ tags:
   - research
   - travel
   - mit
+  - guest-speaker
 authors:
   - gustavo
 imageWithoutText: ../../../public/images/blog/mit/csail-entrance.jpg
