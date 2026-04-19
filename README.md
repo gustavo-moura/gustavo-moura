@@ -1,27 +1,29 @@
-# Gustavo de Moura
+# Hi, I'm Gus 👋
 
-Personal site, built with [Astro](https://astro.build) on top of the
-[astro-erudite](https://github.com/jktrn/enscribe.dev) theme.
+Senior Machine Learning Engineer, creative tech enthusiast, and perpetual student of the field. I love building AI systems that are smart, safe, and actually useful — mostly around **computer vision** and **deep learning**.
 
-## Develop
+Currently at [Buzz Solutions](https://buzzsolutions.com), working on computer vision for power-grid inspection. Before that: autonomous drones, continual learning, and sim-to-real at Eldorado Research Institute. MSc from **ICMC / USP** (2024) — thesis presented at **MIT CSAIL**.
 
-```bash
-npm install
-npm run dev       # http://localhost:1234
-npm run build     # static output in dist/
-```
+## 🧪 What I'm into
 
-## Structure
+- Object detection and continual learning
+- Sim-to-real and domain adaptation
+- Autonomous UAVs and aerial inspection
+- Document understanding and OCR
+- Monte Carlo methods for planning under uncertainty
 
-- `src/content/` — `blog`, `publications`, `games`, `authors`, and `about.mdx`
-- `src/pages/` — routes (home, blog, publications, games, resources, about, tags)
-- `src/styles/global.css` — colors, fonts
-- `src/consts.ts` — site title, nav, social links
+## 🛠️ Usually working with
 
-## Deploy
+**Languages** — Python · TypeScript · C++
+**ML & CV** — PyTorch · TensorFlow · OpenCV · scikit-learn
+**Infra** — Docker · Kubernetes · AWS · FastAPI · Git
 
-Pushes to `main` trigger `.github/workflows/astro-deploy.yaml`, which builds
-and publishes via `actions/deploy-pages@v4`.
+## 👋 Say hi
 
-**One-time setup**: Repo **Settings → Pages → Source** must be set to
-**GitHub Actions** (not "Deploy from a branch").
+- 🌐 [gustavo-moura.github.io](https://gustavo-moura.github.io)
+- 💼 [LinkedIn](https://linkedin.com/in/gus-moura)
+- 📖 [Google Scholar](https://scholar.google.com.br/citations?user=PqZyPqoAAAAJ&hl=en)
+
+---
+
+*This repo also powers my personal site, built with [Astro](https://astro.build). Dev notes in [DEVELOPMENT.md](DEVELOPMENT.md), active follow-ups in [TODO.md](TODO.md).*
